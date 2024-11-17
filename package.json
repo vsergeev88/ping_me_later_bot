@@ -4,8 +4,8 @@
   "description": "Ping Me Later bot by Valentin Sergeev",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index.ts",
-    "dev": "nodemon --exec ts-node index.ts",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "lint": "eslint"
   },
   "author": "Valentin Sergeev",

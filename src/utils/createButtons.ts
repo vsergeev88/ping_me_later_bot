@@ -1,6 +1,19 @@
 import { MONTH_NAMES } from "../constants";
-import { DATE } from "../enums";
+import { ADD_REMINDER_TYPES, DATE } from "../enums";
 import { chunkArray } from "../helpers";
+
+export const createAddReminderButtons = () => {
+  return chunkArray([{
+    text: 'Tomorrow 9:00 AM',
+    callback_data: ADD_REMINDER_TYPES.TOMORROW_MORNING
+  }, {
+    text: 'Monday 9:00 AM',
+    callback_data: ADD_REMINDER_TYPES.MONDAY_MORNING
+  }, {
+    text: 'Custom time',
+    callback_data: ADD_REMINDER_TYPES.CUSTOM_TIME
+  }], 1)
+}
 
 export function createYearButtons() {
   const years = [];
@@ -38,11 +51,13 @@ export function createDayButtons(month: number, year: number) {
   }));
 
   const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
+  const currentMonth = new Date().getMonth() + 1;
   const currentDay = new Date().getDate();
 
-  if (currentYear === year && currentMonth === month - 1) {
-    return chunkArray(days.slice(currentDay), 5);
+  console.log({month, currentMonth})
+
+  if (currentYear === year && currentMonth === month) {
+    return chunkArray(days.slice(currentDay - 1), 5);
   }
 
   return chunkArray(days, 5);
