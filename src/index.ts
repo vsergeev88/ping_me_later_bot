@@ -1,4 +1,4 @@
-import TelegramBot from 'node-telegram-bot-api';
+const TelegramBot = require('node-telegram-bot-api');
 import * as dotenv from 'dotenv';
 import { checkReminders } from './utils/checkReminders';
 import { botListeners } from './botListeners';
