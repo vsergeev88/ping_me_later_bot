@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
-import * as dotenv from 'dotenv';
-import { checkReminders } from './utils/checkReminders';
-import { botListeners } from './botListeners';
+const dotenv = require('dotenv');
+const { checkReminders } = require('./utils/checkReminders');
+const { botListeners } = require('./botListeners');
 
 dotenv.config();
 
