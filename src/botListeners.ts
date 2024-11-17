@@ -1,7 +1,6 @@
 import type TelegramBot from "node-telegram-bot-api";
 import { BaseQueryHandler } from './types';
 import { CALLBACK_ACTIONS, COMMANDS, DATE } from './enums';
-import * as BOT_MESSAGES from './botMessages';
 import { createAddReminderButtons } from './utils/createButtons';
 import { handleQueryError } from './utils/errorHandlers';
 import { customDateQueryHandler } from './botQueryHandlers/customDate';
@@ -18,7 +17,7 @@ export const botListeners = (bot: TelegramBot) => {
       case COMMANDS.REMINDERS:
         return reminders(bot, chat.id);
       default:
-        return bot.sendMessage(chat.id, BOT_MESSAGES.ADD_REMINDER_MESSAGE,
+        return bot.sendMessage(chat.id, 'Alright, let\'s add notification to this',
           {
             reply_markup: {
               inline_keyboard: createAddReminderButtons(),
