@@ -11,7 +11,6 @@ import { deleteDialogMessages } from "../utils/deleteDialogMessages";
 type CustomDateQueryHandlerArgs = BaseQueryHandler & {action: string, messageId: number}
 
 export const customDateQueryHandler = async ({bot, query, chatId, messageId, action, value}: CustomDateQueryHandlerArgs): Promise<void> => {
-  console.log('value', value)
   const userData = userDataManager.getUserData(chatId);
 
   if (action === CALLBACK_ACTIONS.YEAR) {

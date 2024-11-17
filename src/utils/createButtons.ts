@@ -54,8 +54,6 @@ export function createDayButtons(month: number, year: number) {
   const currentMonth = new Date().getMonth() + 1;
   const currentDay = new Date().getDate();
 
-  console.log({month, currentMonth})
-
   if (currentYear === year && currentMonth === month) {
     return chunkArray(days.slice(currentDay - 1), 5);
   }
