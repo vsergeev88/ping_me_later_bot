@@ -3,13 +3,17 @@
 export enum DATE {
   YEAR = 'year',
   MONTH = 'month',
-  DAY = 'day'
+  DAY = 'day',
+  HOUR = 'hour',
+  MINUTE = 'minute'
 }
 
 export enum CALLBACK_ACTIONS {
   YEAR = DATE.YEAR,
   MONTH = DATE.MONTH,
   DAY = DATE.DAY,
+  HOUR = DATE.HOUR,
+  MINUTE = DATE.MINUTE,
   ADD = 'add',
 }
 

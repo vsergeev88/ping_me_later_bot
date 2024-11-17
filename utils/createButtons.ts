@@ -1,27 +1,6 @@
-import { MONTH_NAMES } from "./constants";
-import { DATE } from "./enums";
-import { chunkArray } from "./helpers";
-
-export function getTomorrowAt9AM(): number {
-  const now = new Date();
-  const tomorrow = new Date(now);
-  tomorrow.setDate(now.getDate() + 1);
-  tomorrow.setHours(9, 0, 0, 0);
-
-  return tomorrow.getTime();
-}
-
-export function getNextMondayAt9AM(): number {
-  const now = new Date();
-  const dayOfWeek = now.getDay();
-
-  const daysUntilMonday = (7 - dayOfWeek + 1) % 7 || 7;
-  const nextMonday = new Date(now);
-  nextMonday.setDate(now.getDate() + daysUntilMonday);
-  nextMonday.setHours(9, 0, 0, 0);
-
-  return nextMonday.getTime();
-}
+import { MONTH_NAMES } from "../constants";
+import { DATE } from "../enums";
+import { chunkArray } from "../helpers";
 
 export function createYearButtons() {
   const years = [];
@@ -67,4 +46,22 @@ export function createDayButtons(month: number, year: number) {
   }
 
   return chunkArray(days, 5);
+}
+
+export function createHourButtons() {
+  const hours = Array.from({ length: 24 }, (_, index) => ({
+    text: index.toString().padStart(2, '0'),
+    callback_data: `${DATE.HOUR}_${index}`
+  }));
+
+  return chunkArray(hours, 6);
+}
+
+export function createMinuteButtons() {
+  const hours = Array.from({ length: 12 }, (_, index) => ({
+    text: (index * 5).toString().padStart(2, '0'),
+    callback_data: `${DATE.MINUTE}_${index * 5}`
+  }));
+
+  return chunkArray(hours, 4);
 }
