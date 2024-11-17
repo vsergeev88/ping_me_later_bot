@@ -14,7 +14,7 @@ export function checkReminders(bot: TelegramBot) {
 
     rows.forEach(async (row) => {
       const formattedMessageText = row.message_text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      const reminderText = `<b>New reminder:</b>\n<blockquote>${formattedMessageText}</blockquote>\n`;
+      const reminderText = `✨ <b>New reminder:</b>\n<blockquote>${formattedMessageText}</blockquote>\n`;
 
       await bot.sendMessage(row.chat_id, reminderText, { parse_mode: 'HTML' })
       try {
