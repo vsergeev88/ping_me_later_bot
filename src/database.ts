@@ -1,5 +1,5 @@
 import Database from 'better-sqlite3';
-import { Reminder } from './src/types';
+import { Reminder } from './types';
 
 const db = new Database('reminders.db');
 

@@ -5,7 +5,7 @@ import { REMINDER_TYPES } from "../enums";
 import { getNextMondayAt9AM, getTomorrowAt9AM } from "../utils/getDateTime";
 import { sendConfirmMessage } from "../utils/botMessages";
 import { createYearButtons } from "../utils/createButtons";
-import * as DB from '../../database';
+import * as DB from '../database';
 import { userDataManager } from '../userDataManager';
 
 export const addReminderQueryHandler = async ({bot, query, chatId, value}: BaseQueryHandler) => {

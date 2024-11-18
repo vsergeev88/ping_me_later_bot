@@ -4,7 +4,7 @@ import { createDayButtons, createHourButtons, createMinuteButtons, createMonthBu
 import { handleQueryError } from "../utils/errorHandlers";
 import { getHumanDate } from "../helpers";
 import { sendConfirmMessage } from "../utils/botMessages";
-import * as DB from '../../database';
+import * as DB from '../database';
 import { userDataManager } from '../userDataManager';
 import { deleteDialogMessages } from "../utils/deleteDialogMessages";
 

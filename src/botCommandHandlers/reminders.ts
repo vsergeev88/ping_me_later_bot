@@ -1,6 +1,6 @@
 import type TelegramBot from "node-telegram-bot-api";
 import { Reminder } from "../types";
-import * as DB from '../../database';
+import * as DB from '../database';
 import { getHumanDate } from "../helpers";
 
 export const reminders = async (bot: TelegramBot, chatId: number) => {
