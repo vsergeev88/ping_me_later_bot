@@ -1,17 +1,24 @@
 {
   "compilerOptions": {
-    "outDir": "./.dist",
-    "module": "CommonJS",
-    "target": "ESNext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "strict": true
+    "outDir": "./.dist", // Указываем, что выходные файлы будут в папке .dist
+    "module": "CommonJS", // Используем CommonJS для совместимости с Node.js
+    "target": "ESNext", // Используем последний стандарт JavaScript
+    "esModuleInterop": true, // Для поддержки импорта модулей CommonJS
+    "moduleResolution": "node", // Для корректного разрешения путей модулей
+    "skipLibCheck": true, // Пропускаем проверку типов библиотек
+    "strict": true, // Включаем строгий режим TypeScript
+    "sourceMap": true, // Добавляем sourcemaps для отладки
+    "rootDir": "./src", // Указываем исходную папку с кодом
+    "declaration": true, // Генерация `.d.ts` файлов
+    "removeComments": true, // Убираем комментарии из итогового кода
+    "resolveJsonModule": true, // Поддержка импорта JSON-файлов
+    "forceConsistentCasingInFileNames": true // Предотвращаем ошибки из-за разного регистра
   },
   "include": [
-    "src/**/*"
+    "src/**/*" // Включаем только файлы из папки src
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", // Исключаем папку node_modules
+    ".dist" // Исключаем выходную папку
   ]
 }
