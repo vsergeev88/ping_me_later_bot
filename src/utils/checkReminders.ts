@@ -17,15 +17,15 @@ export function checkReminders(bot: TelegramBot) {
       const formattedMessageText = row.message_text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const reminderText = `✨ <b>New reminder:</b>\n<blockquote>${formattedMessageText}</blockquote>\n`;
 
-      await bot.sendMessage(row.chat_id, reminderText, { parse_mode: 'HTML' })
       try {
+        await bot.sendMessage(row.chat_id, reminderText, { parse_mode: 'HTML' })
         db.run("DELETE FROM reminders WHERE id = ?", [row.id], (deleteErr) => {
           if (deleteErr) {
             console.error("Error deleting reminder:", deleteErr);
           }
         });
       } catch (error) {
-        console.error("Error sending message:", error);
+        console.error("CheckReminders: Error sending message");
       }
     });
   });

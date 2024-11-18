@@ -8,6 +8,6 @@ export function chunkArray(arr: any[], size: number): any[][] {
   return result;
 }
 
-export const getHumanDate = (date: Date) => {
-  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+export const getHumanDate = (date: Date, locale = 'en') => {
+  return date.toLocaleDateString(locale, {dateStyle: 'full'}) + ' ' + date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
 }

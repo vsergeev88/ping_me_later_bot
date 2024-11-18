@@ -12,4 +12,5 @@ export type BaseQueryHandler = {
   query: TelegramBot.CallbackQuery
   chatId: number
   value: string
+  locale?: string
 }

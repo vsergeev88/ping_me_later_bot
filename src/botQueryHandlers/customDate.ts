@@ -10,8 +10,10 @@ import { deleteDialogMessages } from "../utils/deleteDialogMessages";
 
 type CustomDateQueryHandlerArgs = BaseQueryHandler & {action: string, messageId: number}
 
-export const customDateQueryHandler = async ({bot, query, chatId, messageId, action, value}: CustomDateQueryHandlerArgs): Promise<void> => {
+export const customDateQueryHandler = async ({bot, query, chatId, messageId, action, value, locale}: CustomDateQueryHandlerArgs): Promise<void> => {
   const userData = userDataManager.getUserData(chatId);
+
+  // console.log('query', query);
 
   if (action === CALLBACK_ACTIONS.YEAR) {
     const year = parseInt(value);
@@ -78,13 +80,15 @@ export const customDateQueryHandler = async ({bot, query, chatId, messageId, act
 
     const selectedDate = new Date(userData.year, userData.month - 1, userData.day, userData.hour, minute);
 
+    console.log('>>>> query.message!.date', getHumanDate(new Date(query.message!.date), locale))
+
     if (!userData.remindMessageText) {
       return handleQueryError(bot, query, 'remindMessageText missing');
     }
 
     DB.addReminder(chatId, userData.remindMessageText, selectedDate.getTime());
 
-    await sendConfirmMessage(bot, chatId, selectedDate, userData.remindMessageId);
+    await sendConfirmMessage({bot, chatId, selectedDate, remindMessageId: userData.remindMessageId, locale});
     await deleteDialogMessages(bot, chatId);
     userDataManager.deleteUserData(chatId)
   }

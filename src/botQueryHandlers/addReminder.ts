@@ -8,7 +8,7 @@ import { createYearButtons } from "../utils/createButtons";
 import * as DB from '../database';
 import { userDataManager } from '../userDataManager';
 
-export const addReminderQueryHandler = async ({bot, query, chatId, value}: BaseQueryHandler) => {
+export const addReminderQueryHandler = async ({bot, query, chatId, value, locale}: BaseQueryHandler) => {
   const messageId = query.message?.message_id
   const remindMessageText = query.message?.reply_to_message?.text
   const remindMessageId = query.message?.reply_to_message?.message_id
@@ -24,12 +24,12 @@ export const addReminderQueryHandler = async ({bot, query, chatId, value}: BaseQ
   switch (value) {
     case REMINDER_TYPES.TOMORROW_MORNING:
       setReminder(getTomorrowAt9AM());
-      await sendConfirmMessage(bot, chatId, new Date(getTomorrowAt9AM()), remindMessageId);
+      await sendConfirmMessage({bot, chatId, selectedDate: new Date(getTomorrowAt9AM()), remindMessageId, locale});
       bot.deleteMessage(chatId, messageId);
       break
     case REMINDER_TYPES.MONDAY_MORNING:
       setReminder(getNextMondayAt9AM());
-      await sendConfirmMessage(bot, chatId, new Date(getNextMondayAt9AM()), remindMessageId);
+      await sendConfirmMessage({bot, chatId, selectedDate: new Date(getNextMondayAt9AM()), remindMessageId, locale});
       bot.deleteMessage(chatId, messageId);
       break
     case REMINDER_TYPES.CUSTOM:
