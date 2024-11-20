@@ -1,5 +1,5 @@
 import { MONTH_NAMES } from "../constants";
-import { ADD_REMINDER_TYPES, DATE } from "../enums";
+import { ADD_REMINDER_TYPES, CALLBACK_ACTIONS, DATE } from "../enums";
 import { chunkArray } from "../helpers";
 
 export const createAddReminderButtons = () => {
@@ -24,14 +24,14 @@ export function createYearButtons() {
 
   return years.map(year => ({
     text: `${year}`,
-    callback_data: `${DATE.YEAR}_${year}`
+    callback_data: `${CALLBACK_ACTIONS.YEAR}_${year}`
   }));
 }
 
 export function createMonthButtons(year: number) {
   const months = Array.from({ length: 12 }, (_, index) => ({
     text: MONTH_NAMES[index],
-    callback_data: `${DATE.MONTH}_${index + 1}`
+    callback_data: `${CALLBACK_ACTIONS.MONTH}_${index + 1}`
   }));
 
   const currentYear = new Date().getFullYear();
@@ -47,7 +47,7 @@ export function createDayButtons(month: number, year: number) {
   const daysInMonth = new Date(year, month, 0).getDate();
   const days = Array.from({ length: daysInMonth }, (_, index) => ({
     text: `${index + 1}`,
-    callback_data: `${DATE.DAY}_${index + 1}`
+    callback_data: `${CALLBACK_ACTIONS.DAY}_${index + 1}`
   }));
 
   const currentYear = new Date().getFullYear();
@@ -64,7 +64,7 @@ export function createDayButtons(month: number, year: number) {
 export function createHourButtons() {
   const hours = Array.from({ length: 24 }, (_, index) => ({
     text: index.toString().padStart(2, '0'),
-    callback_data: `${DATE.HOUR}_${index}`
+    callback_data: `${CALLBACK_ACTIONS.HOUR}_${index}`
   }));
 
   return chunkArray(hours, 6);
@@ -73,7 +73,7 @@ export function createHourButtons() {
 export function createMinuteButtons() {
   const hours = Array.from({ length: 12 }, (_, index) => ({
     text: (index * 5).toString().padStart(2, '0'),
-    callback_data: `${DATE.MINUTE}_${index * 5}`
+    callback_data: `${CALLBACK_ACTIONS.MINUTE}_${index * 5}`
   }));
 
   return chunkArray(hours, 4);

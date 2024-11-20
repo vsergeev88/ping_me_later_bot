@@ -15,6 +15,7 @@ export enum CALLBACK_ACTIONS {
   HOUR = DATE.HOUR,
   MINUTE = DATE.MINUTE,
   ADD = 'add',
+  CONFIRM_TIMEZONE = 'confirmTimezone'
 }
 
 export enum COMMANDS {

@@ -2,7 +2,6 @@ import { BaseQueryHandler } from "../types";
 import { CALLBACK_ACTIONS } from "../enums";
 import { createDayButtons, createHourButtons, createMinuteButtons, createMonthButtons } from "../utils/createButtons";
 import { handleQueryError } from "../utils/errorHandlers";
-import { getHumanDate } from "../helpers";
 import { sendConfirmMessage } from "../utils/botMessages";
 import * as DB from '../database';
 import { userDataManager } from '../userDataManager';
@@ -12,8 +11,6 @@ type CustomDateQueryHandlerArgs = BaseQueryHandler & {action: string, messageId:
 
 export const customDateQueryHandler = async ({bot, query, chatId, messageId, action, value, locale}: CustomDateQueryHandlerArgs): Promise<void> => {
   const userData = userDataManager.getUserData(chatId);
-
-  // console.log('query', query);
 
   if (action === CALLBACK_ACTIONS.YEAR) {
     const year = parseInt(value);
@@ -79,8 +76,10 @@ export const customDateQueryHandler = async ({bot, query, chatId, messageId, act
     }
 
     const selectedDate = new Date(userData.year, userData.month - 1, userData.day, userData.hour, minute);
+    const serverTimeOffset = new Date().getTimezoneOffset() * 60;
+    const chatTimeOffset = await DB.getTimeOffset(chatId);
 
-    console.log('>>>> query.message!.date', getHumanDate(new Date(query.message!.date), locale))
+    selectedDate.setSeconds(selectedDate.getSeconds() + serverTimeOffset + chatTimeOffset);
 
     if (!userData.remindMessageText) {
       return handleQueryError(bot, query, 'remindMessageText missing');

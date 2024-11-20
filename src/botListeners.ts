@@ -7,10 +7,13 @@ import { customDateQueryHandler } from './botQueryHandlers/customDate';
 import { addReminderQueryHandler } from './botQueryHandlers/addReminder';
 import { start } from "./botCommandHandlers/start";
 import { reminders } from "./botCommandHandlers/reminders";
+import { getTimezoneFromCoordinates } from "./utils/getTimezoneFromCoordinates";
+import * as DB from './database';
 
 export const botListeners = (bot: TelegramBot) => {
   bot.on('message', async (msg) => {
     const {text, chat, message_id, from} = msg;
+    if (!text || !chat || !message_id) return;
     switch (text) {
       case COMMANDS.START:
         return start(bot, chat.id, from?.language_code);
@@ -47,4 +50,14 @@ export const botListeners = (bot: TelegramBot) => {
 
     bot.answerCallbackQuery(query.id);
   })
+
+  bot.on('location', async (msg) => {
+    if (!msg.location) return;
+
+    const { latitude, longitude } = msg.location;
+    const timezoneData = await getTimezoneFromCoordinates(latitude, longitude);
+    if (!timezoneData) return bot.sendMessage(msg.chat.id, 'Sorry, I could not determine your timezone. Please try again later');
+    DB.setTimeZone(msg.chat.id, timezoneData.gmtOffset, JSON.stringify(timezoneData));
+    bot.sendMessage(msg.chat.id, `Your timezone set ${timezoneData.zoneName}`);
+});
 }
