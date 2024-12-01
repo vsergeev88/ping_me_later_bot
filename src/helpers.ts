@@ -11,3 +11,7 @@ export function chunkArray(arr: any[], size: number): any[][] {
 export const getHumanDate = (date: Date, locale = 'en') => {
   return date.toLocaleDateString(locale, {dateStyle: 'full'}) + ' ' + date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
 }
+
+export const getSeconds = (hours: number, minutes = 0): number => {
+  return (hours * 60 * 60 + minutes * 60);
+}

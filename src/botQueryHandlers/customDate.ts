@@ -6,6 +6,7 @@ import { sendConfirmMessage } from "../utils/botMessages";
 import * as DB from '../database';
 import { userDataManager } from '../userDataManager';
 import { deleteDialogMessages } from "../utils/deleteDialogMessages";
+import { correctTimezone } from "../utils/getDateTime";
 
 type CustomDateQueryHandlerArgs = BaseQueryHandler & {action: string, messageId: number}
 
@@ -76,10 +77,7 @@ export const customDateQueryHandler = async ({bot, query, chatId, messageId, act
     }
 
     const selectedDate = new Date(userData.year, userData.month - 1, userData.day, userData.hour, minute);
-    const serverTimeOffset = new Date().getTimezoneOffset() * 60;
-    const chatTimeOffset = await DB.getTimeOffset(chatId);
-
-    selectedDate.setSeconds(selectedDate.getSeconds() + serverTimeOffset + chatTimeOffset);
+    const correctedDate = await correctTimezone(chatId, selectedDate);
 
     if (!userData.remindMessageText) {
       return handleQueryError(bot, query, 'remindMessageText missing');

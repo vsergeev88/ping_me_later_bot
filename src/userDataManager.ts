@@ -31,5 +31,4 @@ class UserDataManager {
   }
 }
 
-// Экспортируем один-единственный экземпляр
 export const userDataManager = new UserDataManager();

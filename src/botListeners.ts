@@ -7,16 +7,23 @@ import { customDateQueryHandler } from './botQueryHandlers/customDate';
 import { addReminderQueryHandler } from './botQueryHandlers/addReminder';
 import { start } from "./botCommandHandlers/start";
 import { reminders } from "./botCommandHandlers/reminders";
-import { getTimezoneFromCoordinates } from "./utils/getTimezoneFromCoordinates";
+import { getTimezoneFromCoordinates, TimezoneData } from "./utils/getTimezoneFromCoordinates";
 import * as DB from './database';
+import { BOT_COMMANDS } from "./constants";
+import { setTimezone } from "./botQueryHandlers/setTimezone";
+import { timeZone } from "./botCommandHandlers/timeZone";
 
-export const botListeners = (bot: TelegramBot) => {
+export const botListeners = async (bot: TelegramBot) => {
+  await bot.setMyCommands(BOT_COMMANDS)
+
   bot.on('message', async (msg) => {
     const {text, chat, message_id, from} = msg;
     if (!text || !chat || !message_id) return;
     switch (text) {
       case COMMANDS.START:
         return start(bot, chat.id, from?.language_code);
+      case COMMANDS.TIME_ZONE:
+        return timeZone(bot, chat.id, from?.language_code);
       case COMMANDS.REMINDERS:
         return reminders(bot, chat.id, from?.language_code);
       default:
@@ -44,6 +51,8 @@ export const botListeners = (bot: TelegramBot) => {
 
     if (action === CALLBACK_ACTIONS.ADD) {
       addReminderQueryHandler(baseQueryArgs);
+    } else if (action === CALLBACK_ACTIONS.TIMEZONE) {
+      setTimezone(baseQueryArgs);
     } else if ((Object.values(DATE) as string[]).includes(action)) {
       customDateQueryHandler({...baseQueryArgs, action, messageId});
     }

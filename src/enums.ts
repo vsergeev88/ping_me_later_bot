@@ -15,12 +15,13 @@ export enum CALLBACK_ACTIONS {
   HOUR = DATE.HOUR,
   MINUTE = DATE.MINUTE,
   ADD = 'add',
-  CONFIRM_TIMEZONE = 'confirmTimezone'
+  TIMEZONE = 'timezone'
 }
 
 export enum COMMANDS {
   START = '/start',
   REMINDERS = '/reminders',
+  TIME_ZONE = '/timezone',
   // UPDATE_REMINDER = '/updatereminder'
 }
 

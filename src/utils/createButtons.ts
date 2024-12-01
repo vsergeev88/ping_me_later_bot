@@ -1,5 +1,5 @@
-import { MONTH_NAMES } from "../constants";
-import { ADD_REMINDER_TYPES, CALLBACK_ACTIONS, DATE } from "../enums";
+import { GMT, MONTH_NAMES } from "../constants";
+import { ADD_REMINDER_TYPES, CALLBACK_ACTIONS } from "../enums";
 import { chunkArray } from "../helpers";
 
 export const createAddReminderButtons = () => {
@@ -77,4 +77,12 @@ export function createMinuteButtons() {
   }));
 
   return chunkArray(hours, 4);
+}
+
+export function createTimeZonesButtons() {
+  const timeZones = Object.keys(GMT).map(timeZone => ({
+    text: timeZone,
+    callback_data: `${CALLBACK_ACTIONS.TIMEZONE}_${GMT[timeZone]}`
+  }));
+  return chunkArray(timeZones, 4);
 }

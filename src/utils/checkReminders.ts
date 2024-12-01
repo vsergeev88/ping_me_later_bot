@@ -4,7 +4,7 @@ import TelegramBot from 'node-telegram-bot-api';
 const db = new sqlite3.Database('reminders.db');
 
 export function checkReminders(bot: TelegramBot) {
-  console.log("Checking reminders...", new Date().toISOString());
+  console.log("Checking reminders...", new Date().toTimeString());
   const now = Date.now();
 
   db.all<Reminder>("SELECT id, chat_id, message_text FROM reminders WHERE reminder_time <= ?", [now], (err, rows) => {

@@ -23,13 +23,15 @@ export const addReminderQueryHandler = async ({bot, query, chatId, value, locale
 
   switch (value) {
     case REMINDER_TYPES.TOMORROW_MORNING:
-      setReminder(getTomorrowAt9AM());
-      await sendConfirmMessage({bot, chatId, selectedDate: new Date(getTomorrowAt9AM()), remindMessageId, locale});
+      const tomorrowMorning = await getTomorrowAt9AM(chatId)
+      setReminder(tomorrowMorning);
+      await sendConfirmMessage({bot, chatId, selectedDate: new Date(tomorrowMorning), remindMessageId, locale});
       bot.deleteMessage(chatId, messageId);
       break
     case REMINDER_TYPES.MONDAY_MORNING:
-      setReminder(getNextMondayAt9AM());
-      await sendConfirmMessage({bot, chatId, selectedDate: new Date(getNextMondayAt9AM()), remindMessageId, locale});
+      const mondayMorning = await getNextMondayAt9AM(chatId)
+      setReminder(mondayMorning);
+      await sendConfirmMessage({bot, chatId, selectedDate: new Date(mondayMorning), remindMessageId, locale});
       bot.deleteMessage(chatId, messageId);
       break
     case REMINDER_TYPES.CUSTOM:
