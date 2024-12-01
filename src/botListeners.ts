@@ -12,6 +12,7 @@ import * as DB from './database';
 import { BOT_COMMANDS } from "./constants";
 import { setTimezone } from "./botQueryHandlers/setTimezone";
 import { timeZone } from "./botCommandHandlers/timeZone";
+import { deleteReminderAction } from "./botQueryHandlers/deleteReminder";
 
 export const botListeners = async (bot: TelegramBot) => {
   await bot.setMyCommands(BOT_COMMANDS)
@@ -53,6 +54,8 @@ export const botListeners = async (bot: TelegramBot) => {
       addReminderQueryHandler(baseQueryArgs);
     } else if (action === CALLBACK_ACTIONS.TIMEZONE) {
       setTimezone(baseQueryArgs);
+    } else if (action === CALLBACK_ACTIONS.DELETE_REMINDER) {
+      deleteReminderAction(baseQueryArgs);
     } else if ((Object.values(DATE) as string[]).includes(action)) {
       customDateQueryHandler({...baseQueryArgs, action, messageId});
     }

@@ -12,7 +12,7 @@ export const reminders = async (bot: TelegramBot, chatId: number, locale = 'en')
       const formattedMessageText = reminder.message_text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const reminderText = `<blockquote>${formattedMessageText}</blockquote>\n⏰ <b>${getHumanDate(date, locale)}</b>`;
 
-      bot.sendMessage(chatId, reminderText, { parse_mode: 'HTML' });
+      bot.sendMessage(chatId, reminderText, { parse_mode: 'HTML', reply_markup: {inline_keyboard: [[{ text: '❌ Delete', callback_data: `deleteReminder_${reminder.id}` }]]} });
     });
   } else {
     bot.sendMessage(chatId, 'You have no reminders.');

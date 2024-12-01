@@ -46,3 +46,8 @@ export const setTimeZone = (chatId: number, timeOffset: number, geoLocation: str
   const stmt = db.prepare('INSERT OR REPLACE INTO time_zones (chat_id, time_offset, geo_location) VALUES (?, ?, ?)');
   stmt.run(chatId, timeOffset, geoLocation);
 }
+
+export const deleteReminder = (id: number) => {
+  const stmt = db.prepare('DELETE FROM reminders WHERE id = ?');
+  stmt.run(id);
+}

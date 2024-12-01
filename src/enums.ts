@@ -15,7 +15,8 @@ export enum CALLBACK_ACTIONS {
   HOUR = DATE.HOUR,
   MINUTE = DATE.MINUTE,
   ADD = 'add',
-  TIMEZONE = 'timezone'
+  TIMEZONE = 'timezone',
+  DELETE_REMINDER = 'deleteReminder'
 }
 
 export enum COMMANDS {
